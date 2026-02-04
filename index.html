@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StreamFinder helps you discover movies and TV shows across all streaming platforms. Stop endless scrolling and find your next favorite watch in seconds.">
+  <meta name="theme-color" content="#141414">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <title>StreamFinder - Movie & TV Discovery Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="site-header">
+    <div class="header-left">
+      <button class="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="logo">StreamFinder</a>
+    </div>
+    <div class="search-wrapper">
+      <form class="search-bar" role="search" aria-label="Search movies and TV shows">
+        <input type="search" id="search-input" placeholder="Search movies & TV shows..." autocomplete="off" aria-label="Search">
+        <button type="submit" class="search-btn" aria-label="Submit search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </form>
+      <div class="autocomplete-dropdown" id="autocomplete-dropdown" hidden></div>
+    </div>
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="genre.html" class="nav-link">Genres</a>
+      <a href="watchlist.html" class="nav-link">Watchlist</a>
+      <a href="#" class="surprise-btn" id="surprise-btn">Surprise Me</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="index.html" class="mobile-nav-link active" aria-label="Home">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="search.html" class="mobile-nav-link" aria-label="Search">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Search</span>
+    </a>
+    <a href="genre.html" class="mobile-nav-link" aria-label="Genres">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span>Genres</span>
+    </a>
+    <a href="watchlist.html" class="mobile-nav-link" aria-label="Watchlist">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span>Watchlist</span>
+    </a>
+  </nav>
+
+  <main id="main-content">
+    <!-- Hero / Featured Trending -->
+    <section class="hero" id="hero-section" aria-label="Featured content">
+      <div class="hero-backdrop" id="hero-backdrop"></div>
+      <div class="hero-content">
+        <span class="hero-badge">Trending Now</span>
+        <h1 class="hero-title" id="hero-title"></h1>
+        <p class="hero-overview" id="hero-overview"></p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="hero-details-btn">View Details</button>
+          <button class="btn btn-secondary" id="hero-watchlist-btn">+ Watchlist</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trending Carousel -->
+    <section class="content-section" aria-label="Trending now">
+      <div class="section-header">
+        <h2 class="section-title">Trending Now</h2>
+        <a href="search.html?sort=popular" class="see-all">See All &rarr;</a>
+      </div>
+      <div class="carousel" id="trending-carousel">
+        <button class="carousel-btn carousel-btn-left" aria-label="Scroll left">&lsaquo;</button>
+        <div class="carousel-track" id="trending-track"></div>
+        <button class="carousel-btn carousel-btn-right" aria-label="Scroll right">&rsaquo;</button>
+      </div>
+    </section>
+
+    <!-- Top Rated Movies -->
+    <section class="content-section" aria-label="Top rated movies">
+      <div class="section-header">
+        <h2 class="section-title">Top Rated Movies</h2>
+        <a href="search.html?type=movie&sort=rating" class="see-all">See All &rarr;</a>
+      </div>
+      <div class="carousel" id="top-rated-carousel">
+        <button class="carousel-btn carousel-btn-left" aria-label="Scroll left">&lsaquo;</button>
+        <div class="carousel-track" id="top-rated-track"></div>
+        <button class="carousel-btn carousel-btn-right" aria-label="Scroll right">&rsaquo;</button>
+      </div>
+    </section>
+
+    <!-- Popular TV Shows -->
+    <section class="content-section" aria-label="Popular TV shows">
+      <div class="section-header">
+        <h2 class="section-title">Popular TV Shows</h2>
+        <a href="search.html?type=tv&sort=popular" class="see-all">See All &rarr;</a>
+      </div>
+      <div class="carousel" id="popular-tv-carousel">
+        <button class="carousel-btn carousel-btn-left" aria-label="Scroll left">&lsaquo;</button>
+        <div class="carousel-track" id="popular-tv-track"></div>
+        <button class="carousel-btn carousel-btn-right" aria-label="Scroll right">&rsaquo;</button>
+      </div>
+    </section>
+
+    <!-- Upcoming Movies -->
+    <section class="content-section" aria-label="Upcoming movies">
+      <div class="section-header">
+        <h2 class="section-title">Coming Soon</h2>
+        <a href="search.html?type=movie&sort=date" class="see-all">See All &rarr;</a>
+      </div>
+      <div class="carousel" id="upcoming-carousel">
+        <button class="carousel-btn carousel-btn-left" aria-label="Scroll left">&lsaquo;</button>
+        <div class="carousel-track" id="upcoming-track"></div>
+        <button class="carousel-btn carousel-btn-right" aria-label="Scroll right">&rsaquo;</button>
+      </div>
+    </section>
+
+    <!-- Browse All Grid -->
+    <section class="content-section" aria-label="Browse all content">
+      <div class="section-header">
+        <h2 class="section-title">Browse All</h2>
+        <a href="search.html" class="see-all">View More &rarr;</a>
+      </div>
+      <div class="content-grid" id="browse-grid"></div>
+    </section>
+  </main>
+
+  <!-- Detail Modal -->
+  <div class="modal-overlay" id="detail-modal" hidden aria-modal="true" role="dialog" aria-label="Content details">
+    <div class="modal">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-backdrop" id="modal-backdrop"></div>
+      <div class="modal-body">
+        <div class="modal-poster">
+          <img id="modal-poster-img" src="" alt="">
+        </div>
+        <div class="modal-info">
+          <h2 class="modal-title" id="modal-title"></h2>
+          <div class="modal-meta" id="modal-meta"></div>
+          <div class="modal-genres" id="modal-genres"></div>
+          <div class="modal-rating" id="modal-rating"></div>
+          <p class="modal-overview" id="modal-overview"></p>
+          <div class="modal-cast" id="modal-cast"></div>
+          <div class="modal-actions">
+            <button class="btn btn-primary" id="modal-watchlist-btn">+ Add to Watchlist</button>
+          </div>
+          <!-- Trailer -->
+          <div class="modal-trailer" id="modal-trailer" hidden>
+            <h4>Trailer</h4>
+            <div class="trailer-container" id="trailer-container"></div>
+          </div>
+          <!-- Where to Watch -->
+          <div class="modal-providers" id="modal-providers" hidden>
+            <h4>Where to Watch</h4>
+            <div class="providers-list" id="providers-list"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Episode Guide (TV only) -->
+      <div class="episode-guide" id="episode-guide" hidden>
+        <h3 class="episode-guide-title">Episode Guide</h3>
+        <div class="season-selector" id="season-selector"></div>
+        <div class="episode-list" id="episode-list"></div>
+      </div>
+      <!-- Similar Titles -->
+      <div class="similar-section" id="similar-section" hidden>
+        <h3 class="section-title">Similar Titles</h3>
+        <div class="carousel-track" id="similar-track"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Surprise Me Modal -->
+  <div class="modal-overlay" id="surprise-modal" hidden aria-modal="true" role="dialog" aria-label="Surprise me picker">
+    <div class="modal surprise-modal-content">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <h2 class="surprise-title">Surprise Me!</h2>
+      <p class="surprise-subtitle">Can't decide? Let us pick for you.</p>
+      <div class="surprise-filters">
+        <select id="surprise-type" aria-label="Content type">
+          <option value="all">Any Type</option>
+          <option value="movie">Movie</option>
+          <option value="tv">TV Show</option>
+        </select>
+        <select id="surprise-genre" aria-label="Genre">
+          <option value="">Any Genre</option>
+        </select>
+      </div>
+      <button class="btn btn-primary surprise-roll-btn" id="surprise-roll-btn">Roll the Dice</button>
+      <div class="surprise-result" id="surprise-result" hidden></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">StreamFinder</div>
+        <p class="footer-tagline">Your ultimate destination for discovering movies and TV shows. Stop endless scrolling and find your next favorite watch in seconds.</p>
+        <span class="footer-tech">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Built with Vanilla JavaScript
+        </span>
+      </div>
+      <div class="footer-column">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="genre.html">Genres</a></li>
+          <li><a href="watchlist.html">Watchlist</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Data Sources</h4>
+        <ul>
+          <li><a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></li>
+          <li><a href="https://www.tvmaze.com/" target="_blank" rel="noopener">TVMaze</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Connect</h4>
+        <div class="footer-social">
+          <a href="https://github.com/aghadiayeamayanvboernest/StreamFinder" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/ernest-jacob" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="mailto:ernestjacob789@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; 2026 StreamFinder. Built by Aghadiaye Amayanvbo Ernest</p>
+      <div class="footer-attribution">
+        <span>Powered by</span>
+        <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a>
+        <span>&</span>
+        <a href="https://www.tvmaze.com/" target="_blank" rel="noopener">TVMaze</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

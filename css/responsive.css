@@ -1,0 +1,501 @@
+/* ===== Tablet (768px and below) ===== */
+@media (max-width: 768px) {
+  .header-nav {
+    display: none;
+  }
+
+  /* Only show hamburger on search page */
+  .page-search .hamburger-btn {
+    display: flex;
+  }
+
+  .mobile-nav {
+    display: flex;
+  }
+
+  body {
+    padding-bottom: var(--mobile-nav-height);
+  }
+
+  .hero {
+    height: 50vh;
+    min-height: 300px;
+  }
+
+  .hero-content {
+    padding: 24px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-overview {
+    -webkit-line-clamp: 2;
+    font-size: 0.85rem;
+  }
+
+  .content-section {
+    padding: 24px 16px;
+  }
+
+  .content-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+  }
+
+  /* Search page */
+  .filter-sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    bottom: var(--mobile-nav-height);
+    width: 280px;
+    z-index: 50;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+  }
+
+  .filter-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .filter-toggle-btn {
+    display: flex;
+  }
+
+  .search-results {
+    padding: 16px;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    padding: 20px 12px;
+  }
+
+  .modal-body {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px 24px;
+    margin-top: -60px;
+  }
+
+  .modal-poster {
+    width: 140px;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .modal-meta {
+    justify-content: center;
+  }
+
+  .modal-genres {
+    justify-content: center;
+  }
+
+  .modal-rating {
+    justify-content: center;
+  }
+
+  .modal-actions {
+    justify-content: center;
+  }
+
+  .modal-backdrop {
+    height: 200px;
+  }
+
+  .trailer-play-btn {
+    padding: 16px;
+    font-size: 0.9rem;
+  }
+
+  .providers-list {
+    justify-content: center;
+  }
+
+  .episode-guide {
+    padding: 20px;
+  }
+
+  .similar-section {
+    padding: 20px;
+  }
+
+  /* Page headers */
+  .page-header {
+    padding: 24px 16px 12px;
+  }
+
+  .genre-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    padding: 0 16px;
+  }
+
+  .watchlist-page .content-grid {
+    padding: 0 16px;
+  }
+
+  .genre-results {
+    padding: 0 16px;
+  }
+
+  /* Footer responsive */
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .footer-brand {
+    grid-column: span 2;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ===== Mobile (480px and below) ===== */
+@media (max-width: 480px) {
+  .site-header {
+    padding: 0 8px;
+    gap: 8px;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+
+  .search-wrapper {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .search-bar {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .search-bar input {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .header-left {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .hamburger-btn {
+    padding: 2px;
+  }
+
+  .theme-toggle {
+    width: 32px;
+    height: 32px;
+  }
+
+  .theme-toggle svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hero {
+    height: 45vh;
+    min-height: 260px;
+  }
+
+  .hero-content {
+    padding: 16px;
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-actions .btn {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+
+  .content-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+
+  .carousel-track .card {
+    width: 130px;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+
+  .content-section {
+    padding: 20px 12px;
+  }
+
+  .genre-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 12px;
+  }
+
+  .surprise-modal-content {
+    padding: 32px 20px;
+  }
+
+  .surprise-title {
+    font-size: 2rem;
+  }
+
+  .surprise-filters {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .surprise-filters select {
+    width: 100%;
+  }
+
+  .page-header {
+    padding: 20px 12px 8px;
+  }
+
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .watchlist-page .content-grid {
+    padding: 0 12px;
+  }
+
+  .genre-results {
+    padding: 0 12px;
+  }
+
+  /* Footer mobile */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .footer-brand {
+    grid-column: span 1;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+
+  .footer-column ul {
+    align-items: center;
+  }
+
+  .site-footer {
+    padding: 32px 16px 16px;
+  }
+
+  /* Larger touch targets for mobile */
+  .card-watchlist-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+  }
+
+  .watchlist-page .card-watchlist-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.6rem;
+  }
+
+  /* Better modal on mobile */
+  .modal {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .modal-overview {
+    font-size: 0.85rem;
+  }
+
+  .modal-cast h4 {
+    font-size: 0.75rem;
+  }
+
+  /* Autocomplete on mobile */
+  .autocomplete-dropdown {
+    max-height: 50vh;
+  }
+
+  .autocomplete-item {
+    padding: 12px;
+  }
+
+  /* Search input */
+  .search-bar input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Filter sidebar on mobile */
+  .filter-sidebar {
+    overflow-y: auto;
+  }
+
+  /* Better card overlay on mobile - always show on watchlist */
+  .watchlist-page .card-overlay {
+    opacity: 1;
+  }
+
+  /* Provider items larger on mobile */
+  .provider-item {
+    min-width: 90px;
+  }
+
+  .provider-item img {
+    width: 52px;
+    height: 52px;
+  }
+
+  /* Empty states on mobile */
+  .empty-state, .error-state {
+    padding: 32px 16px;
+  }
+
+  .empty-state h3, .error-state h3 {
+    font-size: 1.2rem;
+  }
+
+  .empty-state p, .error-state p {
+    font-size: 0.9rem;
+  }
+
+  /* Results header on mobile */
+  .results-header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .results-title {
+    font-size: 1.3rem;
+  }
+
+  .filter-toggle-btn {
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== Large Desktop (1200px+) ===== */
+@media (min-width: 1200px) {
+  .content-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .carousel-track .card {
+    width: 180px;
+  }
+
+  .hero-content {
+    padding: 48px 64px;
+  }
+
+  .content-section {
+    padding: 32px 48px;
+  }
+
+  .page-header {
+    padding: 32px 48px 16px;
+  }
+
+  .genre-grid {
+    padding: 0 48px;
+  }
+
+  .watchlist-page .content-grid {
+    padding: 0 48px;
+  }
+
+  .genre-results {
+    padding: 0 48px;
+  }
+}
+
+/* ===== Very Small Screens (360px and below) ===== */
+@media (max-width: 360px) {
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .carousel-track .card {
+    width: 110px;
+  }
+
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .modal-title {
+    font-size: 1.3rem;
+  }
+
+  .genre-card {
+    padding: 20px 16px;
+  }
+
+  .genre-card h3 {
+    font-size: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .watchlist-count {
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== Touch device improvements ===== */
+@media (hover: none) and (pointer: coarse) {
+  /* Always show interactive elements on touch devices */
+  .card-watchlist-btn {
+    opacity: 1;
+  }
+
+  .carousel-btn {
+    opacity: 0.7;
+  }
+
+  .carousel-btn:active {
+    opacity: 1;
+  }
+
+  /* Larger tap targets */
+  button, .btn, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .card-watchlist-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ===== Desktop-only: hide mobile nav padding ===== */
+@media (min-width: 769px) {
+  body {
+    padding-bottom: 0;
+  }
+}

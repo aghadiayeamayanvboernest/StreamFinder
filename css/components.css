@@ -212,6 +212,35 @@
   background: #dc2626;
 }
 
+/* Category selector on watchlist cards */
+.card-category-select {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 6px 8px;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+  appearance: auto;
+  pointer-events: auto;
+}
+
+.watchlist-page .card:hover .card-category-select {
+  opacity: 1;
+}
+
+.card-category-select option {
+  background: #1F1F1F;
+  color: #fff;
+}
+
 /* Card info below poster (for grid view) */
 .card-info {
   padding: 8px 0 0;
@@ -433,6 +462,23 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.cast-member-link {
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+  width: 70px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.cast-member-link:hover {
+  transform: translateY(-3px);
+}
+
+.cast-member-link .cast-member {
+  width: 100%;
 }
 
 .modal-actions {
@@ -786,4 +832,77 @@
   height: 14px;
   stroke: currentColor;
   flex-shrink: 0;
+}
+
+/* ===== Person / Actor Page ===== */
+.person-page {
+  padding: 32px 24px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.person-skeleton-header {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.person-skeleton-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.skeleton-person-photo {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skeleton-text {
+  border-radius: var(--radius-sm);
+}
+
+.person-header {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.person-photo {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-lg);
+  background: var(--bg-elevated);
+}
+
+.person-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.person-name {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.person-bio {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.person-credits-section {
+  margin-top: 8px;
+}
+
+.person-credits-section .section-title {
+  margin-bottom: 16px;
 }

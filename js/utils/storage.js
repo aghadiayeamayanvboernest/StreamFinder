@@ -26,6 +26,7 @@ export function addToWatchlist(item) {
   const list = getWatchlist();
   const exists = list.some(i => i.id === item.id && i.source === item.source);
   if (!exists) {
+    if (!item.category) item.category = 'To Watch';
     list.push(item);
     setJSON(KEYS.WATCHLIST, list);
   }
@@ -40,6 +41,15 @@ export function removeFromWatchlist(id, source) {
 
 export function isInWatchlist(id, source) {
   return getWatchlist().some(i => i.id === id && i.source === source);
+}
+
+export function updateWatchlistCategory(id, source, newCategory) {
+  const list = getWatchlist();
+  const item = list.find(i => i.id === id && i.source === source);
+  if (item) {
+    item.category = newCategory;
+    setJSON(KEYS.WATCHLIST, list);
+  }
 }
 
 // ===== Recent Searches =====

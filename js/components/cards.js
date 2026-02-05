@@ -1,5 +1,5 @@
 import { getGenreNames, formatRating, PLACEHOLDER_POSTER } from '../utils/helpers.js';
-import { isInWatchlist, addToWatchlist, removeFromWatchlist } from '../utils/storage.js';
+import { isInWatchlist, addToWatchlist, removeFromWatchlist, updateWatchlistCategory } from '../utils/storage.js';
 
 // Create a content card element
 export function createCard(item, isWatchlistPage = false) {
@@ -29,6 +29,26 @@ export function createCard(item, isWatchlistPage = false) {
       </div>
     </div>
   `;
+
+  // Category selector (watchlist page only)
+  if (isWatchlistPage) {
+    const categorySelect = document.createElement('select');
+    categorySelect.className = 'card-category-select';
+    categorySelect.setAttribute('aria-label', 'Change category');
+    ['To Watch', 'Watching Now', 'Already Watched'].forEach(cat => {
+      const opt = document.createElement('option');
+      opt.value = cat;
+      opt.textContent = cat;
+      opt.selected = (item.category || 'To Watch') === cat;
+      categorySelect.appendChild(opt);
+    });
+    categorySelect.addEventListener('change', (e) => {
+      e.stopPropagation();
+      updateWatchlistCategory(item.id, item.source, e.target.value);
+      window.dispatchEvent(new CustomEvent('watchlist-changed'));
+    });
+    card.appendChild(categorySelect);
+  }
 
   // Watchlist toggle
   const wBtn = card.querySelector('.card-watchlist-btn');

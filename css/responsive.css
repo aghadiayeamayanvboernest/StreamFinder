@@ -143,8 +143,31 @@
     padding: 0 16px;
   }
 
+  .watchlist-tabs {
+    padding: 0 16px 12px;
+  }
+
   .genre-results {
     padding: 0 16px;
+  }
+
+  /* Person page */
+  .person-page {
+    padding: 24px 16px 32px;
+  }
+
+  .person-header,
+  .person-skeleton-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .person-photo,
+  .skeleton-person-photo {
+    width: 160px;
+    height: 160px;
   }
 
   /* Footer responsive */
@@ -279,8 +302,27 @@
     padding: 0 12px;
   }
 
+  .watchlist-tabs {
+    padding: 0 12px 8px;
+  }
+
+  .card-category-select {
+    opacity: 1;
+  }
+
   .genre-results {
     padding: 0 12px;
+  }
+
+  /* Person page mobile */
+  .person-photo,
+  .skeleton-person-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .person-name {
+    font-size: 1.6rem;
   }
 
   /* Footer mobile */
@@ -423,6 +465,10 @@
 
   .watchlist-page .content-grid {
     padding: 0 48px;
+  }
+
+  .watchlist-tabs {
+    padding: 0 48px 16px;
   }
 
   .genre-results {

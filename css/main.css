@@ -713,6 +713,46 @@ main {
   padding: 0 24px;
 }
 
+/* ===== Watchlist Category Tabs ===== */
+.watchlist-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 0 24px 16px;
+  flex-wrap: wrap;
+}
+
+.watchlist-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.watchlist-tab:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.watchlist-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.watchlist-tab-count {
+  font-size: 0.75rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 1px 7px;
+}
+
 /* ===== Empty & Error States ===== */
 .empty-state,
 .error-state {

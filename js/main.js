@@ -1,6 +1,6 @@
-import { getTrending, getTopRatedMovies, getPopularTV, getUpcoming, discoverMovies, discoverTV } from './api/tmdb.js';
-import { normalizeTMDB, getAllGenres, getParams, genresReady } from './utils/helpers.js';
-import { getWatchlist, getPreferences, savePreferences, getRecentSearches } from './utils/storage.js';
+import { getTrending, getTopRatedMovies, getPopularTV, getUpcoming, discoverMovies, discoverTV, getPersonDetails, getPersonCredits } from './api/tmdb.js';
+import { normalizeTMDB, getAllGenres, getParams, genresReady, PLACEHOLDER_POSTER } from './utils/helpers.js';
+import { getWatchlist, getPreferences, savePreferences, getRecentSearches, updateWatchlistCategory } from './utils/storage.js';
 import { renderCards, renderSkeletons } from './components/cards.js';
 import { setupAutocomplete, setupSearchForm, combinedSearch } from './components/search.js';
 import { setupFilters, getSortParam, populateGenreSelect } from './components/filters.js';
@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   else if (page === 'search.html') initSearch();
   else if (page === 'watchlist.html') initWatchlist();
   else if (page === 'genre.html') initGenre();
+  else if (page === 'person.html') initPerson();
 });
 
 // ===== Global Setup (runs on every page) =====
@@ -43,6 +44,7 @@ function setupGlobal() {
     const card = e.target.closest('.card');
     if (!card) return;
     if (e.target.closest('[data-action="watchlist"]')) return;
+    if (e.target.closest('.card-category-select')) return;
 
     const id = Number(card.dataset.id);
     const source = card.dataset.source;
@@ -422,17 +424,45 @@ function initWatchlist() {
   const grid = document.getElementById('watchlist-grid');
   const emptyState = document.getElementById('watchlist-empty');
   const countEl = document.getElementById('watchlist-count');
+  const tabsEl = document.getElementById('watchlist-tabs');
+
+  const CATEGORIES = ['All', 'To Watch', 'Watching Now', 'Already Watched'];
+  let activeCategory = 'All';
+
+  function renderTabs(allItems) {
+    if (!tabsEl) return;
+    tabsEl.innerHTML = CATEGORIES.map(cat => {
+      const count = cat === 'All'
+        ? allItems.length
+        : allItems.filter(i => i.category === cat).length;
+      return `<button class="watchlist-tab ${activeCategory === cat ? 'active' : ''}" data-category="${cat}">${cat}<span class="watchlist-tab-count">${count}</span></button>`;
+    }).join('');
+  }
+
+  if (tabsEl) {
+    tabsEl.addEventListener('click', (e) => {
+      const tab = e.target.closest('.watchlist-tab');
+      if (!tab) return;
+      activeCategory = tab.dataset.category;
+      render();
+    });
+  }
 
   function render() {
-    const items = getWatchlist();
-    if (countEl) countEl.textContent = `${items.length} title${items.length !== 1 ? 's' : ''}`;
+    // Default missing category for backward compat
+    const allItems = getWatchlist().map(i => ({ ...i, category: i.category || 'To Watch' }));
 
-    if (items.length === 0) {
+    renderTabs(allItems);
+
+    const filtered = activeCategory === 'All' ? allItems : allItems.filter(i => i.category === activeCategory);
+    if (countEl) countEl.textContent = `${filtered.length} title${filtered.length !== 1 ? 's' : ''}`;
+
+    if (filtered.length === 0) {
       if (grid) grid.innerHTML = '';
       if (emptyState) emptyState.hidden = false;
     } else {
       if (emptyState) emptyState.hidden = true;
-      renderCards(grid, items, false, true); // true = isWatchlistPage
+      renderCards(grid, filtered, false, true);
     }
   }
 
@@ -513,6 +543,73 @@ async function initGenre() {
     currentGenrePage++;
     await loadGenreResults();
   });
+}
+
+// ===== Person / Actor Page =====
+async function initPerson() {
+  const skeleton = document.getElementById('person-skeleton');
+  const content = document.getElementById('person-content');
+  const errorState = document.getElementById('person-error');
+  const creditsSkeletonGrid = document.getElementById('person-credits-skeleton');
+
+  // Show card skeletons in credits area while loading
+  if (creditsSkeletonGrid) renderSkeletons(creditsSkeletonGrid, 12);
+
+  const params = getParams();
+  const personId = params.person_id;
+
+  if (!personId) {
+    if (skeleton) skeleton.hidden = true;
+    if (errorState) errorState.hidden = false;
+    return;
+  }
+
+  try {
+    const [details, credits] = await Promise.all([
+      getPersonDetails(personId),
+      getPersonCredits(personId),
+    ]);
+
+    // Populate photo
+    const photoUrl = details.profile_path
+      ? `https://image.tmdb.org/t/p/w500${details.profile_path}`
+      : PLACEHOLDER_POSTER;
+    document.getElementById('person-photo').src = photoUrl;
+    document.getElementById('person-photo').alt = details.name;
+
+    // Populate name
+    document.getElementById('person-name').textContent = details.name;
+
+    // Populate bio (hide if empty)
+    const bioEl = document.getElementById('person-bio');
+    if (details.biography) {
+      bioEl.textContent = details.biography;
+    } else {
+      bioEl.hidden = true;
+    }
+
+    // Merge movie + TV credits, normalize, sort by popularity, take top 20
+    const movieCredits = (credits.movie_results || []).map(r => normalizeTMDB(r, 'movie'));
+    const tvCredits = (credits.tv_results || []).map(r => normalizeTMDB(r, 'tv'));
+    const allCredits = [...movieCredits, ...tvCredits]
+      .sort((a, b) => b.popularity - a.popularity)
+      .slice(0, 20);
+
+    // Render credits as cards
+    const grid = document.getElementById('person-credits-grid');
+    renderCards(grid, allCredits);
+
+    // Swap skeleton for content
+    if (skeleton) skeleton.hidden = true;
+    if (content) content.hidden = false;
+
+    // Update page title
+    document.title = `${details.name} - StreamFinder`;
+  } catch (err) {
+    console.error('Person page error:', err);
+    if (skeleton) skeleton.hidden = true;
+    if (errorState) errorState.hidden = false;
+  }
 }
 
 // ===== Surprise Me =====

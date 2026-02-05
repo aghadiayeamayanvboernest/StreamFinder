@@ -246,11 +246,13 @@ function renderCast(castArray) {
 
   container.innerHTML = `<h4>Cast</h4><div class="cast-list">
     ${castArray.map(c => `
-      <div class="cast-member">
-        <img src="${c.profile_path ? `https://image.tmdb.org/t/p/w185${c.profile_path}` : PLACEHOLDER_POSTER}" alt="${c.name}" loading="lazy">
-        <div class="cast-member-name">${c.name}</div>
-        <div class="cast-member-role">${c.character}</div>
-      </div>
+      <a href="person.html?person_id=${c.id}" class="cast-member-link">
+        <div class="cast-member">
+          <img src="${c.profile_path ? `https://image.tmdb.org/t/p/w185${c.profile_path}` : PLACEHOLDER_POSTER}" alt="${c.name}" loading="lazy">
+          <div class="cast-member-name">${c.name}</div>
+          <div class="cast-member-role">${c.character}</div>
+        </div>
+      </a>
     `).join('')}
   </div>`;
 }

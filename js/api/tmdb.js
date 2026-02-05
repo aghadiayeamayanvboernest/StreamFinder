@@ -122,3 +122,13 @@ export async function getMovieWatchProviders(id) {
 export async function getTVWatchProviders(id) {
   return tmdbFetch(`/tv/${id}/watch/providers`);
 }
+
+// Person details
+export async function getPersonDetails(personId) {
+  return tmdbFetch(`/person/${personId}`);
+}
+
+// Person combined credits (movies + TV)
+export async function getPersonCredits(personId) {
+  return tmdbFetch(`/person/${personId}/combined_credits`);
+}
